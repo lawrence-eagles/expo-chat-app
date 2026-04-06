@@ -6,7 +6,7 @@ export interface Iuser extends Document {
   email: string;
   avatar: string;
   createdAt: Date;
-  updateAt: Date;
+  updatedAt: Date;
 }
 
 const UserSchema = new Schema<Iuser>(
@@ -17,7 +17,7 @@ const UserSchema = new Schema<Iuser>(
       type: String,
       required: true,
       unique: true,
-      tolowercase: true,
+      lowercase: true,
       trim: true,
     },
     avatar: { type: String, default: "" },
