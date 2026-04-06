@@ -10,10 +10,9 @@
     "module": "nodenext",
     "moduleResolution": "NodeNext",
     "target": "esnext",
-    "types": [],
     // For nodejs:
     // "lib": ["esnext"],
-    // "types": ["node"],
+    "types": ["node"],
     // and npm install -D @types/node
 
     // Other Outputs
@@ -41,5 +40,9 @@
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true
+
+    // my additions
+    // "noEmit": true,
+    // "allowImportingTsExtensions": true
   }
 }
