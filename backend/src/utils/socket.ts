@@ -49,8 +49,13 @@ export const initializeSocket = (httpServer: HttpServer) => {
     // send list of currently online users to the newly connected client
     socket.emit("online-users", { userIds: Array.from(onlineUsers.keys()) });
 
-    // notify other that this current user is online
+    // store user in the onlineUsers map
+    onlineUsers.set(userId, socket.id); // added this line
+
+    // notify others that this current user is online
     socket.broadcast.emit("user-online", { userId });
+
+    socket.join(`user: ${userId}`); // added this line
 
     socket.on("join-chat", (chatId: string) => {
       socket.join(`chat:${chatId}`);
