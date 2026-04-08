@@ -1,11 +1,13 @@
 import express from "express";
 import { clerkMiddleware } from "@clerk/express";
+import { createServer } from "http";
 import { connectDB } from "./config/database.js";
 import chatRoutes from "./routes/chatRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
+import { initializeSocket } from "./utils/socket.js";
 
 const app = express();
 
@@ -27,6 +29,10 @@ app.use(errorHandler);
 app.get("/", (req, res) => {
   res.json({ status: "OK", message: "Server is running" });
 });
+
+// wraps the express app
+const httpServer = createServer(app);
+initializeSocket(httpServer);
 
 // start the server
 const startServer = async () => {
