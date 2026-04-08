@@ -23,7 +23,7 @@ export async function getChats(
 
       return {
         _id: chat._id,
-        particiant: otherParticipant ?? null,
+        participant: otherParticipant ?? null,
         lastMessage: chat.lastMessage,
         lastMessageAt: chat.lastMessageAt,
         createdAt: chat.createdAt,
@@ -44,17 +44,17 @@ export async function getOrCreateChat(
 ) {
   try {
     const userId = req.userId;
-    const { participantId } = req.params;
+    const { participantsId } = req.params;
 
-    if (!participantId) {
-      return res.status(400).json({ message: "Pariticipant ID is required" });
+    if (!participantsId) {
+      return res.status(400).json({ message: "Participant ID is required" });
     }
 
-    if (!Types.ObjectId.isValid(participantId as string)) {
+    if (!Types.ObjectId.isValid(participantsId as string)) {
       return res.status(400).json({ message: "Invalid participant ID format" });
     }
 
-    if (userId === participantId) {
+    if (userId === participantsId) {
       return res
         .status(400)
         .json({ message: "Cannot create chat with yourself" });
@@ -65,7 +65,7 @@ export async function getOrCreateChat(
       participants: {
         $all: [
           new Types.ObjectId(userId),
-          new Types.ObjectId(participantId as string),
+          new Types.ObjectId(participantsId as string),
         ],
       },
     })
@@ -76,9 +76,11 @@ export async function getOrCreateChat(
       const newChat = new Chat({
         participants: [
           new Types.ObjectId(userId),
-          new Types.ObjectId(participantId as string),
+          new Types.ObjectId(participantsId as string),
         ],
       });
+
+      await newChat.save();
 
       chat = await newChat.populate("participants", "name email avatar");
     }
