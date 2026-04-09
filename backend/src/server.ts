@@ -1,5 +1,6 @@
 import express from "express";
 import { clerkMiddleware } from "@clerk/express";
+import cors from "cors";
 import { createServer } from "http";
 import { connectDB } from "./config/database.js";
 import chatRoutes from "./routes/chatRoutes.js";
@@ -13,7 +14,19 @@ const app = express();
 
 const PORT = process.env.PORT || 9000;
 
+const allowedOrigins = [
+  process.env.FRONTEND_DEVELOPMENT_URL as string,
+  process.env.MOBILE_DEVELOPMENT_URL as string,
+  process.env.FRONTEND_PRODUCTION_URL as string,
+].filter(Boolean) as string[];
+
 // middleware
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true, // allow credentials from client (cookies, authorization headers, etc.)
+  }),
+);
 app.use(clerkMiddleware());
 app.use(express.json()); // parses incoming JSON requests  bodies and makes them available under req.body
 
@@ -37,7 +50,7 @@ initializeSocket(httpServer);
 // start the server
 const startServer = async () => {
   await connectDB();
-  app.listen(PORT, () => {
+  httpServer.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
 };
