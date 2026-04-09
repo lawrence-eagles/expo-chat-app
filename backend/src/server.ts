@@ -14,11 +14,27 @@ const app = express();
 
 const PORT = process.env.PORT || 9000;
 
-const allowedOrigins = [
-  process.env.FRONTEND_DEVELOPMENT_URL as string,
-  process.env.MOBILE_DEVELOPMENT_URL as string,
-  process.env.FRONTEND_PRODUCTION_URL as string,
-].filter(Boolean) as string[];
+// const allowedOrigins = [
+//   process.env.FRONTEND_DEVELOPMENT_URL as string,
+//   process.env.MOBILE_DEVELOPMENT_URL as string,
+//   process.env.FRONTEND_PRODUCTION_URL as string,
+// ].filter(Boolean) as string[];
+
+const rawAllowedOrigins = [
+  process.env.FRONTEND_DEVELOPMENT_URL,
+  process.env.MOBILE_DEVELOPMENT_URL,
+  process.env.FRONTEND_PRODUCTION_URL,
+].filter((origin): origin is string => Boolean(origin));
+
+if (rawAllowedOrigins.length === 0) {
+  throw new Error(
+    "CORS misconfiguration: set at least one of FRONTEND_DEVELOPMENT_URL, MOBILE_DEVELOPMENT_URL, or FRONTEND_PRODUCTION_URL",
+  );
+}
+
+const allowedOrigins = rawAllowedOrigins.map(
+  (origin) => new URL(origin).origin,
+);
 
 // middleware
 app.use(
