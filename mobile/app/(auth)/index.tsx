@@ -21,7 +21,7 @@ const AuthScreen = () => {
 
   return (
     <View className="flex-1 bg-surface-dark">
-      <View className="absolute insex-0 overflow-hidden"></View>
+      <View className="absolute inset-0 overflow-hidden"></View>
 
       <SafeAreaView className="flex-1">
         {/* Top Section - Branding */}

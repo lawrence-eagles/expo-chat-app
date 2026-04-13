@@ -1,13 +1,16 @@
 import { useSSO } from "@clerk/expo";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Alert } from "react-native";
 
 function useAuthSocial() {
   const [loadingStrategy, setLoadingStrategy] = useState<string | null>(null);
+  const inFlightRef = useRef(false);
   const { startSSOFlow } = useSSO();
 
   const handleSocialAuth = async (strategy: "oauth_google" | "oauth_apple") => {
-    if (loadingStrategy) return; // guard against concurrent flow;
+    // if (loadingStrategy) return; // guard against concurrent flow;
+    if (inFlightRef.current) return;
+    inFlightRef.current = true;
     setLoadingStrategy(strategy);
 
     try {
@@ -31,6 +34,7 @@ function useAuthSocial() {
         `Failed to sign in with ${provider}. Please try again.`,
       );
     } finally {
+      inFlightRef.current = false;
       setLoadingStrategy(null);
     }
   };
