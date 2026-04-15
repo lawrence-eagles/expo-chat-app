@@ -23,7 +23,7 @@ api.interceptors.response.use(
     if (error.response) {
       Sentry.logger.error(
         Sentry.logger
-          .fmt`API request failed: ${error.config?.method?.toUpperCase()} ${error.config?.method}`,
+          .fmt`API request failed: ${error.config?.method?.toUpperCase()} ${error.config?.url}`,
       );
     } else if (error.request) {
       Sentry.logger.warn("API request failed - no response", {
@@ -41,7 +41,7 @@ export const useApi = () => {
 
   const apiWithAuth = useCallback(
     async <T>(config: Parameters<typeof api.request>[0]) => {
-      const token = getToken();
+      const token = await getToken();
       return api.request<T>({
         ...config,
         headers: {

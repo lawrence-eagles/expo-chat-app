@@ -7,7 +7,7 @@ const AuthSync = () => {
   const { isSignedIn } = useAuth();
   const { user } = useUser();
   const { mutate: syncUser } = useAuthCallback();
-  const hasSynced = useRef(false); // thisis used to not run useEffect more than once
+  const hasSynced = useRef(false); // this is used to not run useEffect more than once
 
   useEffect(() => {
     if (isSignedIn && user && !hasSynced.current) {
@@ -17,7 +17,7 @@ const AuthSync = () => {
         onSuccess: (data) => {
           console.log("User synced with backend:", data.name);
           Sentry.logger.info(
-            Sentry.logger.fmt`User synched with backend: ${data.name}`,
+            Sentry.logger.fmt`User synced with backend: ${data.name}`,
             {
               userId: user.id,
               userName: data.name,
