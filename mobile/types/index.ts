@@ -5,6 +5,10 @@ export interface User {
   avatar: string;
 }
 
+export interface ClerkUser {
+  user: User;
+}
+
 export interface MessageSender {
   _id: string;
   name: string;

@@ -10,8 +10,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import { Ionicons } from "@expo/vector-icons";
 import useAuthSocial from "@/hooks/useSocialAuth";
-import { useAuth } from "@clerk/expo";
-import { Redirect } from "expo-router";
 
 const { width, height } = Dimensions.get("window");
 
