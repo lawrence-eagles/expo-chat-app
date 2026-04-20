@@ -35,18 +35,15 @@ const NewChatScreen = () => {
   const handleUserSelect = (user: User) => {
     getOrCreateChat(user._id, {
       onSuccess: (chat) => {
-        router.dismiss(); // navigate to the previous screen -> go -1
-        setTimeout(() => {
-          router.push({
-            pathname: "/chat/[id]",
-            params: {
-              id: chat._id,
-              participantId: chat.participant._id,
-              name: chat.participant.name,
-              avatar: chat.participant.avatar,
-            },
-          });
-        }, 1000);
+        router.dismissTo({
+          pathname: "/chat/[id]",
+          params: {
+            id: chat._id,
+            participantId: chat.participant._id,
+            name: chat.participant.name,
+            avatar: chat.participant.avatar,
+          },
+        });
       },
     });
   };
@@ -67,7 +64,7 @@ const NewChatScreen = () => {
               <Text className="text-foreground text-xl font-semibold">
                 New chat
               </Text>
-              <Text className="text-muted-foreground text-xs mt-0 5">
+              <Text className="text-muted-foreground text-xs mt-0.5">
                 Search for a user to start chatting
               </Text>
             </View>

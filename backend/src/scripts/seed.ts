@@ -77,9 +77,18 @@ async function seed() {
     await mongoose.connect(mongodbUri);
     console.log("Connected to MongoDB");
 
+    if (process.env.NODE_ENV === "production") {
+      throw new Error("Refusing to seed users in production");
+    }
+
+    const seedClerkIds = SEED_USERS.map((user) => user.clerkId);
+    const seedEmails = SEED_USERS.map((user) => user.email.toLowerCase());
+
     // Delete old users
-    await User.deleteMany();
-    console.log("Old users deleted!");
+    await User.deleteMany({
+      $or: [{ clerkId: { $in: seedClerkIds } }, { email: { $in: seedEmails } }],
+    });
+    console.log("Old seed users deleted!");
 
     // Insert seed users
     const users = await User.insertMany(SEED_USERS);
