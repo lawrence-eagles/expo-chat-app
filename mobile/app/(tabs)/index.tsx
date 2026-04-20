@@ -54,7 +54,7 @@ const ChatsTab = () => {
 
   return (
     <View className="flex-1 bg-surface">
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1 }} edges={["top"]}>
         <FlatList
           data={chats}
           keyExtractor={(item) => item._id}
@@ -77,7 +77,7 @@ const ChatsTab = () => {
               iconColor="#686870"
               iconSize={64}
               buttonLabel="New Chat"
-              onPressButton={() => console.log("pressed btn")}
+              onPressButton={() => router.push("/new-chat")}
             />
           }
         />
