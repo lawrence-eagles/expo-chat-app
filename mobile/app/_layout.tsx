@@ -5,10 +5,10 @@ import { Stack } from "expo-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StatusBar } from "expo-status-bar";
 import AuthSync from "@/components/AuthSync";
-import * as Sentry from '@sentry/react-native';
+import * as Sentry from "@sentry/react-native";
 
 Sentry.init({
-  dsn: 'https://d2d47919ef99bb7c1fc581e5d176eef1@o4511100096872448.ingest.us.sentry.io/4511224497897472',
+  dsn: "https://d2d47919ef99bb7c1fc581e5d176eef1@o4511100096872448.ingest.us.sentry.io/4511224497897472",
 
   // Adds more context data to events (IP address, cookies, user, etc.)
   // For more information, visit: https://docs.sentry.io/platforms/react-native/data-management/data-collected/
@@ -49,6 +49,14 @@ export default Sentry.wrap(function RootLayout() {
         >
           <Stack.Screen name="(auth)" options={{ animation: "fade" }} />
           <Stack.Screen name="(tabs)" options={{ animation: "fade" }} />
+          <Stack.Screen
+            name="new-chat"
+            options={{
+              animation: "slide_from_bottom",
+              presentation: "modal",
+              gestureEnabled: true,
+            }}
+          />
         </Stack>
       </QueryClientProvider>
     </ClerkProvider>
