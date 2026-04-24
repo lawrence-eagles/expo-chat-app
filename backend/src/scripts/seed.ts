@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { User } from "../models/User.js";
+import { Chat } from "../models/Chat.js";
+import { Message } from "../models/Message.js";
 
 dotenv.config({ quiet: true });
 
@@ -83,6 +85,19 @@ async function seed() {
 
     const seedClerkIds = SEED_USERS.map((user) => user.clerkId);
     const seedEmails = SEED_USERS.map((user) => user.email.toLowerCase());
+
+    // Delete old chats & messages tied to seed users
+    const seedUserIds = (
+      await User.find({ clerkId: { $in: seedClerkIds } }, { _id: 1 })
+    ).map((u) => u._id);
+    const seedChats = await Chat.find(
+      { participants: { $in: seedUserIds } },
+      { _id: 1 },
+    );
+    const seedChatIds = seedChats.map((c) => c._id);
+    await Message.deleteMany({ chat: { $in: seedChatIds } });
+    await Chat.deleteMany({ _id: { $in: seedChatIds } });
+    console.log(`Deleted ${seedChatIds.length} seed chats and their messages`);
 
     // Delete old users
     await User.deleteMany({
