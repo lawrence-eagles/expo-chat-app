@@ -21,7 +21,7 @@ const ChatItem = ({ chat, onPress }: { chat: Chat; onPress: () => void }) => {
       {/* Avatar & online indicator */}
       <View className="relative">
         <Image
-          source={participant?.avatar}
+          source={participant.avatar}
           style={{ width: 56, height: 56, borderRadius: 999 }}
         />
         {isOnline && (

@@ -22,11 +22,11 @@ export const useCurrentUser = () => {
   return useQuery({
     queryKey: ["currentUser"],
     queryFn: async () => {
-      const { data } = await apiWithAuth<User>({
+      const { data } = await apiWithAuth<{ user: User }>({
         method: "GET",
         url: "/auth/me",
       });
-      return data;
+      return data.user;
     },
   });
 };

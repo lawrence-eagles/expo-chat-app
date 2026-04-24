@@ -22,7 +22,8 @@ const NewChatScreen = () => {
   const { data: allUsers, isLoading } = useUsers();
   const { mutate: getOrCreateChat, isPending: isCreatingChat } =
     useGetOrCreateChat();
-  const { onlineUsers } = useSocketStore();
+  // const { onlineUsers } = useSocketStore();
+  const onlineUsers = useSocketStore((s) => s.onlineUsers);
 
   // client-side filtering
   const users = allUsers?.filter((user) => {
