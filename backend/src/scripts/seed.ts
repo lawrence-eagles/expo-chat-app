@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { User } from "../models/User.js";
+import { Chat } from "../models/Chat.js";
 
 dotenv.config({ quiet: true });
 
@@ -83,6 +84,10 @@ async function seed() {
 
     const seedClerkIds = SEED_USERS.map((user) => user.clerkId);
     const seedEmails = SEED_USERS.map((user) => user.email.toLowerCase());
+
+    // Delete old chats
+    await Chat.deleteMany();
+    console.log("All chats deleted");
 
     // Delete old users
     await User.deleteMany({

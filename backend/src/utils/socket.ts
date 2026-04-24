@@ -166,8 +166,38 @@ export const initializeSocket = (httpServer: HttpServer) => {
       },
     );
 
-    // todo: later
-    socket.on("typing", async (data) => {});
+    socket.on("typing", async (data: { chatId: string; isTyping: boolean }) => {
+      // This payload is what other clients will use to update their UI (e.g., show “John is typing…”).
+      const typingPayload = {
+        userId,
+        chatId: data.chatId,
+        isTyping: data.isTyping,
+      };
+
+      // emit to chat room (for users inside the chat)
+      // Sends the event to everyone in the chat room, except the sender.
+      socket.to(`chat:${data.chatId}`).emit("typing", typingPayload);
+
+      // also emit to other participant's personal room (for chat list view)
+      try {
+        const chat = await Chat.findById(data.chatId);
+        if (chat) {
+          const otherParticipantId = chat.participants.find(
+            (p: any) => p.toString() !== userId,
+          );
+          if (otherParticipantId) {
+            // Sends the typing event to a user-specific room.
+            // This is useful because Even if the other user is not inside the chat screen, they can:
+            // See typing indicators in their chat list preview Get real-time updates elsewhere in the app
+            socket
+              .to(`user:${otherParticipantId}`)
+              .emit("typing", typingPayload);
+          }
+        }
+      } catch (error) {
+        // silently fail - typing indicator is not critical
+      }
+    });
 
     // When a user disconnects, this code removes them from the online users list and notifies all other users that they are now offline.
     // socket.on → listens for an event from this client
