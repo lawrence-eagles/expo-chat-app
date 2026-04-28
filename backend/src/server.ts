@@ -9,6 +9,9 @@ import messageRoutes from "./routes/messageRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { initializeSocket } from "./utils/socket.js";
+import dotenv from "dotenv";
+
+dotenv.config({ quiet: true });
 
 const app = express();
 
