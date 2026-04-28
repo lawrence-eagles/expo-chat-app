@@ -3,8 +3,14 @@ import { io, Socket } from "socket.io-client";
 import { QueryClient } from "@tanstack/react-query";
 import { Chat, Message, MessageSender } from "@/types";
 import * as Sentry from "@sentry/react-native";
+import "react-native-get-random-values";
+import { v4 as uuidv4 } from "uuid";
 
-const SOCKET_URL = process.env.EXPO_PUBLIC_SOCKET_URL ?? "http://192.168.0.105:9000"
+const SOCKET_URL = process.env.EXPO_PUBLIC_SOCKET_URL;
+
+if (!SOCKET_URL) {
+  throw new Error("EXPO_PUBLIC_SOCKET_URL is required");
+}
 
 interface SocketState {
   socket: Socket | null;
@@ -235,7 +241,7 @@ export const useSocketStore = create<SocketState>((set, get) => ({
     if (!socket?.connected || !queryClient) return;
 
     // optimistic updates Create a temporary message (optimistic UI)
-    const tempId = `temp-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`; // create a fake message ID
+    const tempId = `temp-${uuidv4()}`; // create a fake message ID
 
     // Creates a temporary message for optimistic udpate. This message mimics a real message from the server
     const optimisticMessage: Message = {

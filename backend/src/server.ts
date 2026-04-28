@@ -1,3 +1,4 @@
+import dotenv from "dotenv";
 import express from "express";
 import { clerkMiddleware } from "@clerk/express";
 import cors from "cors";
@@ -9,6 +10,8 @@ import messageRoutes from "./routes/messageRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { initializeSocket } from "./utils/socket.js";
+
+dotenv.config({ quiet: true });
 
 const app = express();
 
