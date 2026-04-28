@@ -12,19 +12,16 @@
 - 🔐 Authentication with Clerk (React, React Native & Express SDKs)
 - 🌐 Shared Backend for Mobile & Web
 - 🧠 Custom Socket Server (No Firebase / Pusher / Ably)
-- 🚀 Backend with Bun, Express, MongoDB & TypeScript
+- 🚀 Backend with Node.js, Express, MongoDB & TypeScript
 - 📡 Real-Time Events & WebSocket Communication
 - 🎨 Clean, Modern & Production-Ready UI
 - 📱 Cross-Platform Development (iOS, Android & Web)
 - 🛠️ REST API Design & Implementation
 - 🧪 Error Monitoring & Crash Reporting with Sentry
-- 🚀 Deployment on Sevalla (Live API + Web App)
+- 🚀 Deployment on Vercel (Live API + Web App)
 - 🧰 Real-World Git & GitHub Workflow
 - 🌱 Feature Branches, Commits, Pull Requests & Merges
-- 🤖 Automated Code Reviews with CodeRabbit
 - 🔒 Secure & Scalable Architecture Best Practices
-- 📚 Learn React vs React Native by Building a Real Product
-- 🎯 From Absolute Beginner to Production-Level Real-Time App
 
 ---
 
