@@ -10,6 +10,7 @@ function useUserSync() {
     mutate: syncUser,
     isPending,
     isSuccess,
+    isError,
   } = useMutation({
     mutationFn: async () => {
       const token = await getToken();
@@ -25,12 +26,12 @@ function useUserSync() {
   });
 
   useEffect(() => {
-    if (isSignedIn && !isPending && !isSuccess) {
+    if (isSignedIn && !isPending && !isSuccess && !isError) {
       syncUser();
     }
-  }, [isSignedIn, syncUser, isPending, isSuccess]);
+  }, [isSignedIn, syncUser, isPending, isSuccess, isError]);
 
-  return { isSynced: isSuccess, isSyncing: isPending };
+  return { isSynced: isSuccess, isSyncing: isPending, syncError: isError };
 }
 
 export default useUserSync;

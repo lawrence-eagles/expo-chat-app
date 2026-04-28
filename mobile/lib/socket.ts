@@ -6,8 +6,11 @@ import * as Sentry from "@sentry/react-native";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 
-const SOCKET_URL =
-  process.env.EXPO_PUBLIC_SOCKET_URL ?? "http://192.168.0.103:9000";
+const SOCKET_URL = process.env.EXPO_PUBLIC_SOCKET_URL;
+
+if (!SOCKET_URL) {
+  throw new Error("EXPO_PUBLIC_SOCKET_URL is required");
+}
 
 interface SocketState {
   socket: Socket | null;

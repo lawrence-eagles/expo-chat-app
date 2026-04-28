@@ -12,15 +12,24 @@ export const useSocketConnection = (activeChatId) => {
   // connect socket on mount
 
   useEffect(() => {
-    if (isSignedIn) {
-      getToken().then((token) => {
-        if (token) connect(token, queryClient);
-      });
-    } else {
-      disconnect();
-    }
+    let cancelled = false;
+
+    const initSocket = async () => {
+      if (!isSignedIn) {
+        disconnect();
+        return;
+      }
+
+      const token = await getToken();
+      if (!cancelled && token) {
+        connect(token, queryClient);
+      }
+    };
+
+    initSocket();
 
     return () => {
+      cancelled = true;
       disconnect();
     };
   }, [isSignedIn, connect, disconnect, getToken, queryClient]);

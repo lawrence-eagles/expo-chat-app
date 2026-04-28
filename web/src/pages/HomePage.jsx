@@ -36,7 +36,7 @@ const HomePage = () => {
           <div className="mb-8">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-mono uppercase tracking-wider">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-              Now Avaliable
+              Now Available
             </span>
           </div>
 
@@ -51,7 +51,7 @@ const HomePage = () => {
 
           {/* Description */}
           <p className="mt-6 text-lg text-white opacity-70 leading-relaxed max-w-md">
-            Secure,blazing-fast conversations with real-time presence and
+            Secure, blazing-fast conversations with real-time presence and
             instant delivery. Connect with anyone, anywhere.
           </p>
 
@@ -178,7 +178,7 @@ const HomePage = () => {
             />
 
             {/* Floating elements */}
-            <div className="absolute -top-4 -right-4 px-4 py-2 bg-emerald-500/20 border border-emerald-500/30 rounded-full text-emerald-400 text-sm font-medium backgrop-blur-sm">
+            <div className="absolute -top-4 -right-4 px-4 py-2 bg-emerald-500/20 border border-emerald-500/30 rounded-full text-emerald-400 text-sm font-medium backdrop-blur-sm">
               ● 3 online
             </div>
 

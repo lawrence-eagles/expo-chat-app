@@ -2,6 +2,7 @@ export function formatTime(date) {
   if (!date) return "";
   const d = new Date(date);
   const now = new Date();
+  if (Number.isNaN(d.getTime())) return "";
   const diff = now - d;
 
   if (diff < 60000) return "now";

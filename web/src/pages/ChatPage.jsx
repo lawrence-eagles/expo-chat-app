@@ -68,6 +68,12 @@ const ChatPage = () => {
     }, 2000);
   };
 
+  useEffect(() => {
+    return () => {
+      clearTimeout(typingTimeoutRef.current);
+    };
+  }, []);
+
   const activeChat = chats.find((c) => c._id === activeChatId);
 
   return (

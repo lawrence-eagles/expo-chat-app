@@ -1,4 +1,4 @@
-import { SendIcon } from "lucide-react";
+import { Send } from "lucide-react";
 
 function ChatInput({ value, onChange, onSubmit, disabled }) {
   return (
@@ -6,6 +6,7 @@ function ChatInput({ value, onChange, onSubmit, disabled }) {
       <div className="flex items-center gap-3">
         <input
           type="text"
+          aria-label="Message"
           value={value}
           onChange={onChange}
           placeholder="Type a message..."
@@ -13,10 +14,11 @@ function ChatInput({ value, onChange, onSubmit, disabled }) {
         />
         <button
           type="submit"
+          aria-label="Send message"
           disabled={disabled}
           className="btn rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 border-none disabled:btn-disabled"
         >
-          <SendIcon className="w-5 h-5" />
+          <Send className="w-5 h-5" aria-hidden="true" />
         </button>
       </div>
     </form>

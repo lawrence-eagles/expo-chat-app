@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const SOCKET_URL = import.meta.env.VITE_SOCKET_URL;
 
-if (!SOCKET_URL) throw error("SOCKET_URl not set!");
+if (!SOCKET_URL) throw new error("SOCKET_URl not set!");
 
 export const useSocketStore = create((set, get) => ({
   socket: null,
